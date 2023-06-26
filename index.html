@@ -1,0 +1,39 @@
+<!doctype html?>
+
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Ricky Bounce</title>
+<link rel="stylesheet" href="style.css">
+
+<script>
+window.onload = function() {
+  var context = new AudioContext();
+}
+</script>
+</head>
+
+<body>
+
+<div id="ricky"></div>
+
+<div id="space">
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+</div>
+
+ <audio controls autoplay hidden>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="rb.mp3" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio> 
+
+<iframe src="rb.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+</iframe>
+</body>
+
+</html>
