@@ -15,6 +15,16 @@ background: #000;
 overflow: hidden;
 }
 
+#ricky{
+display: block;
+width: 245px;
+height: 268px;
+background: url('rb.png');
+position: absolute;
+animation: moveX 15s linear 0s infinite alternate, moveY 13s linear 0s infinite alternate;
+z-index: 100;
+}
+
 $stars: 350;         // Number of start per layer
 $depth: 300;         // Depth between star layers
 $speed: 3s;          // Number of seconds to transition between layers
