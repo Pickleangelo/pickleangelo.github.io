@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 *{
 	margin: 0;
 	padding: 0;
@@ -11,75 +13,75 @@ background: #000;
 overflow: hidden;
 }
 
-#ricky{
-display: block;
-width: 245px;
-height: 268px;
-background: url('rb.png');
-position: absolute;
-animation: moveX 4s linear 0s infinite alternate, moveY 5.4s linear 0s infinite alternate;
-z-index: 100;
-}
+$stars: 350;         // Number of start per layer
+$depth: 300;         // Depth between star layers
+$speed: 3s;          // Number of seconds to transition between layers
+$width: 3000;        // Width of the starfield
+$height: 960;        // Height of the starfield
 
-#space, .stars {
+html, body {
+  height: 100%;
   overflow: hidden;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
-
+body {
+  background: #000;
+  perspective: 340px;
+}
 .stars {
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  animation: zoom 8s infinite;
-  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  $box-shadow: ();
+  @for $i from 0 through $stars {
+    $box-shadow: $box-shadow, (random($width)-$width/2 + px) (random($height)-$height/2 + px) hsl(90,0,75+random(25));
+  }
+  box-shadow: $box-shadow;
+  animation: fly $speed linear infinite;
+  transform-style: preserve-3d;
+  
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    box-shadow: inherit;
+  }
+  &:before {
+    transform: translateZ(-$depth + px);
+    animation: fade1 $speed linear infinite;
+  }
+  &:after {
+    transform: translateZ(-$depth * 2 + px);
+    animation: fade2 $speed linear infinite;
+  }
 }
 
-.stars:nth-child(1) {
-  background-position: 50% 50%;
-  animation-delay: 0s;
-}
-.stars:nth-child(2) {
-  background-position: 20% 60%;
-  animation-delay: 1s;
-}
-.stars:nth-child(3) {
-  background-position: -20% -30%;
-  animation-delay: 2s;
-}
-.stars:nth-child(4) {
-  background-position: 40% -80%;
-  animation-delay: 3s;
-}
-.stars:nth-child(5) {
-  background-position: -20% 30%;
-  animation-delay: 4s;
+@keyframes fly {
+  from {
+    transform: translateZ(0px);
+  }
+  to {
+    transform: translateZ($depth + px);
+  }
 }
 
-@keyframes zoom {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-    animation-timing-function: ease-in;
-  } 
-  85% {
+@keyframes fade1 {
+  from {
+    opacity: .5;
+  }
+  to {
     opacity: 1;
-    transform: scale(1.8);
-    animation-timing-function: linear;
-  }
-  100% {
+  }  
+}
+@keyframes fade2 {
+  from {
     opacity: 0;
-    transform: scale(2.5);
   }
+  to {
+    opacity: .5;
+  }  
 }
 
 @keyframes moveX {
